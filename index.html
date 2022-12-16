@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Acordes</title>
+
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body{
+      background-color: #34333f;
+      height: 100vh;
+
+      text-align: center;
+      text-transform: uppercase;
+      color: #ddd;
+    }
+    h1{
+
+      text-transform: none;
+    }
+
+    #keyboard{
+      position: relative;
+      padding: 0;
+      margin: 15px;
+
+      background-color: #ddd;
+      height: 500px;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: stretch;
+      gap: 0px;
+
+      font-weight: bolder;
+      font-size: 1.5em;
+    }
+
+    .white-keys{
+      padding: 10px;
+      border: 2px solid #23222f;
+      width: 100rem;
+
+      display: flex;
+      flex-direction: column-reverse;
+      color: #23222F;
+    }
+    .white-keys:hover{
+      cursor: pointer;
+    }
+
+    .section-black-keys{
+      position: absolute;
+      transform: translateX(-50%);
+      left: 50%;
+      width: 100%;
+      height: 70%;
+
+      display: grid;
+      grid-template-columns: 3fr 4fr;
+    }
+
+    .content-black-keys{
+      height: 100%;
+
+      display: flex;
+      justify-content: space-evenly;
+    }
+
+    .black-keys{
+      padding: 10px;
+      background-color: #23222f;
+      width: 5rem;
+
+      display: flex;
+      flex-direction: column-reverse;
+    }
+    .black-keys:hover{
+      cursor: pointer;
+    }
+
+    .instructions{
+      padding: 30px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    li{
+      margin: 5px;
+      font-weight: bold;
+      text-align: left;
+    }
+
+    .active{
+      background-color: #33a;
+      color: #fff;
+    }
+
+  </style>
+
+</head>
+<body>
+
+  <section id="keyboard">
+
+    <div id="key-c" data-target="c2-4-6" class="white-keys" onmousedown="playWithClick(this)">C</div>
+    <div id="key-d" data-target="d3-5-0" class="white-keys" onmousedown="playWithClick(this)">D</div>
+    <div id="key-e" data-target="e4-6-1" class="white-keys" onmousedown="playWithClick(this)">E</div>
+    <div id="key-f" data-target="f5-0-2" class="white-keys" onmousedown="playWithClick(this)">F</div>
+    <div id="key-g" data-target="g6-3-1" class="white-keys" onmousedown="playWithClick(this)">G</div>
+    <div id="key-a" data-target="a0-2-4" class="white-keys" onmousedown="playWithClick(this)">A</div>
+    <div id="key-b" data-target="b1-3-5" class="white-keys" onmousedown="playWithClick(this)">B</div>
+
+    <div class="section-black-keys">
+
+      <div class="content-black-keys">
+        <div id="key-c-sus" data-target="h8-5-11" class="black-keys" onmousedown="playWithClick(this)">C#</div>
+        <div id="key-d-sus" data-target="i9-10-7" class="black-keys" onmousedown="playWithClick(this)">D#</div>
+      </div>
+      
+      <div class="content-black-keys">
+        <div id="key-f-sus" data-target="j10-7-8" class="black-keys" onmousedown="playWithClick(this)">F#</div>
+        <div id="key-g-sus" data-target="k11-2-9" class="black-keys" onmousedown="playWithClick(this)">G#</div>
+        <div id="key-a-sus" data-target="l7-8-5"  class="black-keys" onmousedown="playWithClick(this)">A#</div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <h1>O ACORDE APARECERÁ AQUI</h1>
+
+  <div class="instructions">
+    
+    <ul>
+      <li>C - dó</li>
+      <li>D - ré menor</li>
+      <li>E - mi menor</li>
+      <li>F - fá</li>
+      <li>G - sol</li>
+      <li>A - lá menor</li>
+      <li>B - si diminuto</li>
+    </ul>
+    
+    <ul>
+      <li>H - dó sustenido</li>
+      <li>I - ré sustenido menor</li>
+      <li>J - fá sustenido</li>
+      <li>K - sol sustenido</li>
+      <li>L - lá sustenido menor</li>
+    </ul>
+
+  </div>
+
+  <audio id="a" src="./audios/a.m4a"></audio>
+  <audio id="b" src="./audios/b.m4a"></audio>
+  <audio id="c" src="./audios/c.m4a"></audio>
+  <audio id="d" src="./audios/d.m4a"></audio>
+  <audio id="e" src="./audios/e.m4a"></audio>
+  <audio id="f" src="./audios/f.m4a"></audio>
+  <audio id="g" src="./audios/g.m4a"></audio>
+  <audio id="h" src="./audios/c-sus.m4a"></audio>
+  <audio id="i" src="./audios/d-sus.m4a"></audio>
+  <audio id="j" src="./audios/f-sus.m4a"></audio>
+  <audio id="k" src="./audios/g-sus.m4a"></audio>
+  <audio id="l" src="./audios/a-sus.m4a"></audio>
+
+  <script>
+    const h1 = document.querySelector('h1')
+    const notes = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'a-sus', 'c-sus', 'd-sus', 'f-sus', 'g-sus'];
+
+   onkeypress = ()=>{
+    const acorde = event.key.toLowerCase();
+
+      switch (acorde) {
+        
+        case 'a':
+          const a_index = [0, 2, 4];
+
+          activeAcorde(a_index, acorde)
+
+          h1.innerText = 'Am';
+          break;
+        
+        case 'b':
+          const b_index = [1, 3, 5];
+
+          activeAcorde(b_index, acorde)
+
+          h1.innerText = 'B°';
+          break;
+        
+        case 'c':
+          const c_index = [2, 4, 6];
+
+          activeAcorde(c_index, acorde)
+
+          h1.innerText = 'C';
+          break;
+        
+        case 'd':
+          const d_index = [3, 5, 0];
+
+          activeAcorde(d_index, acorde);
+
+          h1.innerText = "Dm";
+          break;
+        
+        case 'e':
+          const e_index = [4, 6, 1];
+
+          activeAcorde(e_index, acorde);
+
+          h1.innerText = 'Em';
+          break;
+        
+        case 'f':
+          const f_index = [5, 0, 2];
+
+          activeAcorde(f_index, acorde);
+
+          h1.innerText = 'F';
+          break;
+        
+        case 'g':
+          const g_index = [6, 3, 1];
+
+          activeAcorde(g_index, acorde);
+
+          h1.innerText = 'G';
+          break;
+        
+        case 'h':
+          const h_index = [8, 5, 11];
+
+          activeAcorde(h_index, acorde);
+
+          h1.innerText = 'C#';
+          break;
+        
+        case 'i':
+          const i_index = [9, 10, 7];
+
+          activeAcorde(i_index, acorde)
+
+          h1.innerText = 'D#m';
+          break;
+        
+        case 'j':
+          const j_index = [10, 7, 8];
+
+          activeAcorde(j_index, acorde);
+
+          h1.innerText = 'F#';
+          break;
+        
+        case 'k':
+          const k_index = [11, 2, 9];
+
+          activeAcorde(k_index, acorde);
+          
+          h1.innerText = 'G#';
+          break;
+        
+        case 'l':
+          const l_index = [7, 8, 5];
+
+          activeAcorde(l_index, acorde);
+
+          h1.innerText = 'A#m';
+          break;
+      
+        default:
+
+
+          h1.innerText = 'Não foi possível identificar o acorde.';
+          break;
+      }
+    }
+
+    onkeyup = ()=>{
+      stopAudio()
+
+    }
+
+    onmouseup = ()=>{
+      stopAudio()
+
+    }
+
+    function stopAudio(){
+
+      const keys_actives = document.querySelectorAll('.active');
+
+      keys_actives.forEach(key_active=>{
+
+        key_active.classList.remove('active');
+      })
+
+      const audios = document.querySelectorAll('.playing');
+
+      audios.forEach(audio=>{
+
+        audio.pause();
+
+        audio.currentTime = 0;
+
+        audio.classList.remove('playing');
+
+      })
+
+      h1.innerText = 'O ACORDE APARECERÁ AQUI';
+
+    }
+
+    function playWithClick(element){
+      const all_target = element.dataset.target;
+
+      const acorde = all_target[0];
+
+      const notes_target = all_target.split(acorde)[1];
+
+      const notes_arr = notes_target.split('-');
+      
+      activeAcorde(notes_arr, acorde)
+    }
+
+    function activeAcorde(notes_index, acorde){
+      
+      notes_index.forEach(note_index=>{
+            const note = notes[note_index]
+
+            let id = 'key-';
+            id += note;
+
+            const audio = document.getElementById(acorde);
+
+            audio.classList.add('playing')
+            audio.play();
+
+            const key = document.getElementById(id);
+            key.classList.add('active');
+          })
+    }
+  </script>
+  
+</body>
+</html>
