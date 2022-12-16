@@ -1,0 +1,97 @@
+
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body{
+      background-color: #34333f;
+      height: 100vh;
+
+      text-align: center;
+      text-transform: uppercase;
+      color: #ddd;
+    }
+    h1{
+
+      text-transform: none;
+    }
+
+    #keyboard{
+      position: relative;
+      padding: 0;
+      margin: 15px;
+
+      background-color: #ddd;
+      height: 500px;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: stretch;
+      gap: 0px;
+
+      font-weight: bolder;
+      font-size: 1.5em;
+    }
+
+    .white-keys{
+      padding: 10px;
+      border: 2px solid #23222f;
+      width: 100rem;
+
+      display: flex;
+      flex-direction: column-reverse;
+      color: #23222F;
+    }
+    .white-keys:hover{
+      cursor: pointer;
+    }
+
+    .section-black-keys{
+      position: absolute;
+      transform: translateX(-50%);
+      left: 50%;
+      width: 100%;
+      height: 70%;
+
+      display: grid;
+      grid-template-columns: 3fr 4fr;
+    }
+
+    .content-black-keys{
+      height: 100%;
+
+      display: flex;
+      justify-content: space-evenly;
+    }
+
+    .black-keys{
+      padding: 10px;
+      background-color: #23222f;
+      width: 5rem;
+
+      display: flex;
+      flex-direction: column-reverse;
+    }
+    .black-keys:hover{
+      cursor: pointer;
+    }
+
+    .instructions{
+      padding: 30px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    li{
+      margin: 5px;
+      font-weight: bold;
+      text-align: left;
+    }
+
+    .active{
+      background-color: #33a;
+      color: #fff;
+    }
