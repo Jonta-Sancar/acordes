@@ -7,7 +7,7 @@
 body{
   padding: 15px;
   background-color: #34333f;
-  height: 100vh;
+  min-height: 100vh;
 
   text-align: center;
   text-transform: uppercase;
@@ -111,4 +111,12 @@ li{
 .active{
   background-color: #33a;
   color: #fff;
+}
+
+table{
+  background-color: #ddd  ;
+}
+td, th{
+  padding: 10px;
+  background-color: #23222f;
 }

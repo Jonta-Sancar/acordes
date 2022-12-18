@@ -2,8 +2,6 @@ const span_tone = document.querySelector('#tone');
 const span_chord = document.querySelector('#chord');
 const span_grau = document.querySelector('#grau');
 const notes = [ 'c', 'c-sus', 'd', 'd-sus', 'e', 'f', 'f-sus', 'g', 'g-sus', 'a', 'a-sus', 'b'];
-const major_scale = [ 0, 2, 4, 5, 7, 9, 11];
-const minor_scale = [ 0, 2, 3, 5, 7, 8, 10];
 
 const tones = {
   'c': [ 'c', 'dm', 'em', 'f', 'g', 'am', 'bd' ],
@@ -108,7 +106,7 @@ function reset(){
 
   stopAudio();
   keys.forEach(key=>{
-    key.dataset.chord = '';
+    key.dataset.chord = 'nada';
     key.classList.remove('filled');
   })
 }
@@ -121,7 +119,7 @@ function fillChordsInKeys(tone) {
 
     const key = document.getElementById(`key-${notes[key_index]}`);
 
-    key.dataset.chord = `${chord}-${tone.indexOf(chord)}`;
+    key.dataset.chord = `${chord}--${tone.indexOf(chord)}`;
     key.classList.add('filled');
   });
 }
@@ -149,11 +147,12 @@ function stopAudio(){
 }
 
 function playWithClick(element){
-  const chord_info = element.dataset.chord.split('-');
-  const chord = chord_info[0];
-  const grau = chord_info[1];
+  const element_chord = element.dataset.chord;
 
-  if (chord) {
+  if (element_chord != 'nada' && element_chord) {
+    const chord_info = element_chord.split('--');
+    const chord = chord_info[0];
+    const grau = chord_info[1];
     
     stopAudio();
     activeAcorde(chords[chord], chord, grau);
