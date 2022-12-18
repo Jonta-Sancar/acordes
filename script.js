@@ -1,115 +1,129 @@
-const h1 = document.querySelector('h1')
-const notes = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'a-sus', 'c-sus', 'd-sus', 'f-sus', 'g-sus'];
+const span_tone = document.querySelector('#tone');
+const span_chord = document.querySelector('#chord');
+const span_grau = document.querySelector('#grau');
+const notes = [ 'c', 'c-sus', 'd', 'd-sus', 'e', 'f', 'f-sus', 'g', 'g-sus', 'a', 'a-sus', 'b'];
+const major_scale = [ 0, 2, 4, 5, 7, 9, 11];
+const minor_scale = [ 0, 2, 3, 5, 7, 8, 10];
 
-onkeypress = ()=>{
+const tones = {
+  'c': [ 'c', 'dm', 'em', 'f', 'g', 'am', 'bd' ],
+  'cm': [ 'cm', 'd', 'd-sus', 'f', 'g', 'g-sus', 'a-sus' ],
+  'c-sus': [ 'c-sus', 'd-sus', 'f', 'f-sus', 'g-sus', 'a-sus', 'c' ],
+  'c-susm': [ 'c-susm', 'd-sus', 'e', 'f-sus', 'g-sus', 'a', 'b' ],
 
-  const acorde = event.key.toLowerCase();
+  'd': [ 'd', 'e', 'f-sus', 'g', 'a', 'b', 'c-sus' ],
+  'dm': [ 'dm', 'e', 'f', 'g', 'a', 'a-sus', 'c' ],
+  'd-sus': [ 'd-sus', 'f', 'g', 'g-sus', 'a-sus', 'c', 'd' ],
+  'd-susm': [ 'd-susm', 'f', 'f-sus', 'g-sus', 'a-sus', 'b', 'c-sus' ],
+
+  'e': [ 'e', 'f-sus', 'g-sus', 'a', 'b', 'c-sus', 'd-sus' ],
+  'em': [ 'em', 'f-sus', 'g', 'a', 'b', 'c', 'd' ],
+
+  'f': [ 'f', 'g', 'a', 'a-sus', 'c', 'd', 'e' ],
+  'fm': [ 'fm', 'g', 'g-sus', 'a-sus', 'c', 'c-sus', 'd-sus' ],
+  'f-sus': [ 'f-sus', 'g-sus', 'a-sus', 'b', 'c-sus', 'd-sus', 'f' ],
+  'f-susm': [ 'f-susm', 'g-sus', 'a-sus', 'b', 'c-sus', 'd', 'e' ],
+
+  'g': [ 'g', 'a', 'b', 'c', 'd', 'e', 'f-sus' ],
+  'gm': [ 'gm', 'a', 'a-sus', 'c', 'd', 'd-sus', 'f' ],
+  'g-sus': [ 'g-sus', 'a-sus', 'c', 'c-sus', 'd-sus', 'f', 'g' ],
+  'g-susm': [ 'g-susm', 'a-sus', 'b', 'c-sus', 'd-sus', 'e', 'f-sus' ],
+
+  'a': [ 'a', 'b', 'c-sus', 'd', 'e', 'f-sus', 'g-sus' ],
+  'am': [ 'am', 'b', 'c', 'd', 'e', 'f', 'g' ],
+  'a-sus': [ 'a-sus', 'c', 'd', 'd-sus', 'f', 'g', 'a' ],
+  'a-susm': [ 'a-susm', 'c', 'c-sus', 'd-sus', 'f', 'f-sus', 'g-sus' ],
+
+  'b': [ 'b', 'c-sus', 'd-sus', 'e', 'f-sus', 'g-sus','a-sus' ],
+  'bm': [ 'bm', 'c-sus', 'd', 'e', 'f-sus', 'g', 'a' ],
+}
+
+const chords = {
+  'c':[ 0, 4, 7 ],
+  'cm':[ 0,3, 7 ],
+  'cd':[ 0, 3, 6, ],
+  'c-sus':[1, 5, 8 ],
+  'c-susm':[ 1, 4, 8 ],
+  'c-susd':[ 1, 4, 7 ],
+  
+  'd':[ 2, 6, 9 ],
+  'dm':[ 2, 5, 9 ],
+  'dd':[ 2, 5, 8 ],
+  'd-sus':[ 3, 7, 10],
+  'd-susm':[ 3, 6, 10 ],
+  'd-susd':[ 3, 6, 9 ],
+
+  'e':[ 4, 8, 11],
+  'em':[ 4, 7, 11 ],
+  'ed':[ 4, 7, 10 ],
+
+  'f':[ 5, 9, 0],
+  'fm':[ 5, 8, 0 ],
+  'fd':[ 5, 8, 11 ],
+  'f-sus':[ 6, 10, 1 ],
+  'f-susm':[ 6, 9, 1 ],
+  'f-susd':[ 6, 9, 0 ],
+
+  'g':[ 7, 11, 2],
+  'gm':[ 7, 10, 2 ],
+  'gd':[ 7, 10, 1 ],
+  'g-sus':[ 8, 0, 3 ],
+  'g-susm':[ 8, 11, 3 ],
+  'g-susd':[ 8, 11, 2 ],
+
+  'a':[ 9, 1, 4 ],
+  'am':[ 9, 0, 4 ],
+  'ad':[ 9, 0, 3 ],
+  'a-sus':[ 10, 2, 5 ],
+  'a-susm':[ 10, 1,  5],
+  'a-susd':[ 10, 1, 4 ],
+
+  'b':[ 11, 3, 6 ],
+  'bm':[ 11, 2, 6 ],
+  'bd':[ 11, 2, 5 ]
+}
+
+function changeTone(select){
+  const tone = select.value;
+  const tone_chords = tones[tone];
+  
+  reset();
+  
+  span_tone.innerHTML = `|| TOM: ${tone} |`;
+
+  fillChordsInKeys(tones[tone]);
+
+  window.onkeypress = ()=>{
+
+    const grau = parseInt(event.key) - 1;
+    
+    stopAudio();
+
+    activeAcorde(chords[tone_chords[grau]], tone_chords[grau], grau)
+  }
+}
+
+function reset(){
+  const keys = document.querySelectorAll('.filled');
 
   stopAudio();
-  switch (acorde) {
-    
-    case 'a':
-      const a_index = [0, 2, 4];
+  keys.forEach(key=>{
+    key.dataset.chord = '';
+    key.classList.remove('filled');
+  })
+}
 
-      activeAcorde(a_index, acorde)
+function fillChordsInKeys(tone) {
 
-      h1.innerText = 'Am';
-      break;
-    
-    case 'b':
-      const b_index = [1, 3, 5];
+  tone.forEach(chord => {
 
-      activeAcorde(b_index, acorde)
+    const key_index = chords[chord][0];
 
-      h1.innerText = 'B°';
-      break;
-    
-    case 'c':
-      const c_index = [2, 4, 6];
+    const key = document.getElementById(`key-${notes[key_index]}`);
 
-      activeAcorde(c_index, acorde)
-
-      h1.innerText = 'C';
-      break;
-    
-    case 'd':
-      const d_index = [3, 5, 0];
-
-      activeAcorde(d_index, acorde);
-
-      h1.innerText = "Dm";
-      break;
-    
-    case 'e':
-      const e_index = [4, 6, 1];
-
-      activeAcorde(e_index, acorde);
-
-      h1.innerText = 'Em';
-      break;
-    
-    case 'f':
-      const f_index = [5, 0, 2];
-
-      activeAcorde(f_index, acorde);
-
-      h1.innerText = 'F';
-      break;
-    
-    case 'g':
-      const g_index = [6, 3, 1];
-
-      activeAcorde(g_index, acorde);
-
-      h1.innerText = 'G';
-      break;
-    
-    case 'h':
-      const h_index = [8, 5, 11];
-
-      activeAcorde(h_index, acorde);
-
-      h1.innerText = 'C#';
-      break;
-    
-    case 'i':
-      const i_index = [9, 10, 7];
-
-      activeAcorde(i_index, acorde)
-
-      h1.innerText = 'D#m';
-      break;
-    
-    case 'j':
-      const j_index = [10, 7, 8];
-
-      activeAcorde(j_index, acorde);
-
-      h1.innerText = 'F#';
-      break;
-    
-    case 'k':
-      const k_index = [11, 2, 9];
-
-      activeAcorde(k_index, acorde);
-      
-      h1.innerText = 'G#';
-      break;
-    
-    case 'l':
-      const l_index = [7, 8, 5];
-
-      activeAcorde(l_index, acorde);
-
-      h1.innerText = 'A#m';
-      break;
-  
-    default:
-
-
-      h1.innerText = 'Não foi possível identificar o acorde.';
-      break;
-  }
+    key.dataset.chord = `${chord}-${tone.indexOf(chord)}`;
+    key.classList.add('filled');
+  });
 }
 
 function stopAudio(){
@@ -132,25 +146,21 @@ function stopAudio(){
     audio.classList.remove('playing');
 
   })
-
-  h1.innerText = 'O ACORDE APARECERÁ AQUI';
-
 }
 
 function playWithClick(element){
-  const all_target = element.dataset.target;
+  const chord_info = element.dataset.chord.split('-');
+  const chord = chord_info[0];
+  const grau = chord_info[1];
 
-  const acorde = all_target[0];
-
-  const notes_target = all_target.split(acorde)[1];
-
-  const notes_arr = notes_target.split('-');
-  
-  stopAudio();
-  activeAcorde(notes_arr, acorde)
+  if (chord) {
+    
+    stopAudio();
+    activeAcorde(chords[chord], chord, grau);
+  }
 }
 
-function activeAcorde(notes_index, acorde){
+function activeAcorde(notes_index, acorde, grau){
   
   notes_index.forEach(note_index=>{
         const note = notes[note_index]
@@ -165,5 +175,8 @@ function activeAcorde(notes_index, acorde){
 
         const key = document.getElementById(id);
         key.classList.add('active');
-      })
-  }
+  })
+
+  span_chord.innerHTML = `| ACORDE: ${acorde} |`;
+  span_grau.innerHTML = `| GRAU: ${parseInt(grau)+1} ||`;
+}

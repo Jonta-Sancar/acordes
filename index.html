@@ -12,27 +12,71 @@
 </head>
 <body>
 
+  <section style="margin: 30px;">
+
+    <label for="tom-select">Tom:</label>
+
+    <select name="tom" id="tom-select" onchange="changeTone(this)">
+
+      <option value="st" selected disabled>Selecione o tom</option>
+      <option value="c">C</option>
+      <option value="cm">Cm</option>
+      <option value="c-sus">C#</option>
+      <option value="c-susm">C#m</option>
+      <option value="d">D</option>
+      <option value="dm">Dm</option>
+      <option value="d-sus">D#</option>
+      <option value="d-susm">D#m</option>
+      <option value="e">E</option>
+      <option value="em">Em</option>
+      <option value="f">F</option>
+      <option value="fm">Fm</option>
+      <option value="f-sus">F#</option>
+      <option value="f-susm">F#m</option>
+      <option value="g">G</option>
+      <option value="gm">Gm</option>
+      <option value="g-sus">G#</option>
+      <option value="g-susm">G#m</option>
+      <option value="a">A</option>
+      <option value="am">Am</option>
+      <option value="a-sus">A#</option>
+      <option value="a-susm">A#m</option>
+      <option value="b">B</option>
+      <option value="bm">Bm</option>
+
+    </select>
+
+  </section>
+
   <section id="keyboard">
 
-    <div id="key-c" data-target="c2-4-6" class="white-keys" onclick="playWithClick(this)">C</div>
-    <div id="key-d" data-target="d3-5-0" class="white-keys" onclick="playWithClick(this)">D</div>
-    <div id="key-e" data-target="e4-6-1" class="white-keys" onclick="playWithClick(this)">E</div>
-    <div id="key-f" data-target="f5-0-2" class="white-keys" onclick="playWithClick(this)">F</div>
-    <div id="key-g" data-target="g6-3-1" class="white-keys" onclick="playWithClick(this)">G</div>
-    <div id="key-a" data-target="a0-2-4" class="white-keys" onclick="playWithClick(this)">A</div>
-    <div id="key-b" data-target="b1-3-5" class="white-keys" onclick="playWithClick(this)">B</div>
+    <div id="key-c" class="white keys" onclick="playWithClick(this)">C</div>
+    <div id="key-d" class="white keys" onclick="playWithClick(this)">D</div>
+    <div id="key-e" class="white keys" onclick="playWithClick(this)">E</div>
+    <div id="key-f" class="white keys" onclick="playWithClick(this)">F</div>
+    <div id="key-g" class="white keys" onclick="playWithClick(this)">G</div>
+    <div id="key-a" class="white keys" onclick="playWithClick(this)">A</div>
+    <div id="key-b" class="white keys" onclick="playWithClick(this)">B</div>
 
-    <div class="section-black-keys">
+    <div id="sup-keys">
 
-      <div class="content-black-keys">
-        <div id="key-c-sus" data-target="h8-5-11" class="black-keys" onclick="playWithClick(this)">C#</div>
-        <div id="key-d-sus" data-target="i9-10-7" class="black-keys" onclick="playWithClick(this)">D#</div>
+      <div id="left" class="div-keys">
+        <div class="container-keys">
+
+          <div id="key-c-sus" class="black keys" onclick="playWithClick(this)">C#</div>
+          <div id="key-d-sus" class="black keys" onclick="playWithClick(this)">D#</div>
+
+        </div>
       </div>
-      
-      <div class="content-black-keys">
-        <div id="key-f-sus" data-target="j10-7-8" class="black-keys" onclick="playWithClick(this)">F#</div>
-        <div id="key-g-sus" data-target="k11-2-9" class="black-keys" onclick="playWithClick(this)">G#</div>
-        <div id="key-a-sus" data-target="l7-8-5"  class="black-keys" onclick="playWithClick(this)">A#</div>
+
+      <div id="right" class="div-keys">
+        <div class="container-keys">
+
+          <div id="key-f-sus" class="black keys" onclick="playWithClick(this)">F#</div>
+          <div id="key-g-sus" class="black keys" onclick="playWithClick(this)">G#</div>
+          <div id="key-a-sus" class="black keys" onclick="playWithClick(this)">A#</div>
+
+        </div>
       </div>
 
     </div>
@@ -41,42 +85,54 @@
 
   <section>
 
-    <h1>O ACORDE APARECERÁ AQUI</h1>
-  
-    <div class="instructions">
+    <span style="font-size: 2.5em;"><span id="tone">| TOM:  |</span><span id="chord">| ACORDE:  |</span><span id="grau">| GRAU: |</span></span>
       
-      <ul>
-        <li>C - dó</li>
-        <li>D - ré menor</li>
-        <li>E - mi menor</li>
-        <li>F - fá</li>
-        <li>G - sol</li>
-        <li>A - lá menor</li>
-        <li>B - si diminuto</li>
-      </ul>
-      
-      <ul>
-        <li>H - dó sustenido</li>
-        <li>I - ré sustenido menor</li>
-        <li>J - fá sustenido</li>
-        <li>K - sol sustenido</li>
-        <li>L - lá sustenido menor</li>
-      </ul>
+  </section>
   
-    </div>
-  
+  <section>
+
     <audio id="a" src="./audios/a.m4a"></audio>
+    <audio id="am" src="./audios/am.m4a"></audio>
+    <audio id="ad" src="./audios/ad.m4a"></audio>
+    <audio id="a-sus" src="./audios/a-sus.m4a"></audio>
+    <audio id="a-susm" src="./audios/a-susm.m4a"></audio>
+    <audio id="a-susd" src="./audios/a-susd.m4a"></audio>
+
     <audio id="b" src="./audios/b.m4a"></audio>
+    <audio id="bm" src="./audios/bm.m4a"></audio>
+    <audio id="bd" src="./audios/bd.m4a"></audio>
+
     <audio id="c" src="./audios/c.m4a"></audio>
+    <audio id="cm" src="./audios/cm.m4a"></audio>
+    <audio id="cd" src="./audios/cd.m4a"></audio>
+    <audio id="c-sus" src="./audios/c-sus.m4a"></audio>
+    <audio id="c-susm" src="./audios/c-susm.m4a"></audio>
+    <audio id="c-susd" src="./audios/c-susd.m4a"></audio>
+
     <audio id="d" src="./audios/d.m4a"></audio>
+    <audio id="dm" src="./audios/dm.m4a"></audio>
+    <audio id="dd" src="./audios/dd.m4a"></audio>
+    <audio id="d-sus" src="./audios/d-sus.m4a"></audio>
+    <audio id="d-susm" src="./audios/d-susm.m4a"></audio>
+    <audio id="d-susd" src="./audios/d-susd.m4a"></audio>
+
     <audio id="e" src="./audios/e.m4a"></audio>
+    <audio id="em" src="./audios/em.m4a"></audio>
+    <audio id="ed" src="./audios/ed.m4a"></audio>
+
     <audio id="f" src="./audios/f.m4a"></audio>
+    <audio id="fm" src="./audios/fm.m4a"></audio>
+    <audio id="fd" src="./audios/fd.m4a"></audio>
+    <audio id="f-sus" src="./audios/f-sus.m4a"></audio>
+    <audio id="f-susm" src="./audios/f-susm.m4a"></audio>
+    <audio id="f-susd" src="./audios/f-susd.m4a"></audio>
+
     <audio id="g" src="./audios/g.m4a"></audio>
-    <audio id="h" src="./audios/c-sus.m4a"></audio>
-    <audio id="i" src="./audios/d-sus.m4a"></audio>
-    <audio id="j" src="./audios/f-sus.m4a"></audio>
-    <audio id="k" src="./audios/g-sus.m4a"></audio>
-    <audio id="l" src="./audios/a-sus.m4a"></audio>
+    <audio id="gm" src="./audios/gm.m4a"></audio>
+    <audio id="gd" src="./audios/gd.m4a"></audio>
+    <audio id="g-sus" src="./audios/g-sus.m4a"></audio>
+    <audio id="g-susm" src="./audios/g-susm.m4a"></audio>
+    <audio id="g-susd" src="./audios/g-susd.m4a"></audio>
 
   </section>
 
